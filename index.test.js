@@ -21,4 +21,6 @@ test("handles new lines between numbers", () => {
 test("Support different delimiters", () => {
     expect(Add("//;\n1;2")).toBe(3);
     expect(Add("//;\n1;2;3;4;5")).toBe(15);
+    expect(Add("//$\n10$20$30")).toBe(60);
+    expect(Add("//!\n10!20!30!100")).toBe(160);
 });

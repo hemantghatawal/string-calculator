@@ -12,7 +12,7 @@ function Add(string) {
   if (string.startsWith("//")) {
     const parts = string.split("\n");
     const customDelimiter = parts[0].slice(2);
-    delimiterRegex = new RegExp(customDelimiter);
+    delimiterRegex = new RegExp(escapeRegex(customDelimiter));
     numbersPart = parts[1];
   }
 
@@ -25,6 +25,10 @@ function Add(string) {
   return sum;
 }
 
-console.log(Add("//;\n1;2;3;4;5"));
+console.log(Add("//$\n10$20$30"));
+
+function escapeRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 module.exports = { Add };
