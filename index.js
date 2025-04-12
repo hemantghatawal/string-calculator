@@ -6,7 +6,8 @@ function Add(string) {
     return sum;
   }
 
-  const strChunk = string.split(",");
+  const strChunk = string.split(/,|\n/);
+  console.log("strChunk =>", strChunk)
   strChunk.forEach((element) => {
     if(element)
     sum += Number(element);
@@ -15,6 +16,6 @@ function Add(string) {
   return sum;
 }
 
-console.log(Add("1,2,3,4,5,6,7,8,9,10"));
+console.log(Add("1\n2,3"));
 
 module.exports = { Add };
