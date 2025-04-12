@@ -36,3 +36,10 @@ test("throws error for multiple negative numbers", () => {
 test("handles custom delimiter with negative numbers", () => {
   expect(() => Add("//;\n1;2;-3")).toThrow("negatives not allowed: -3");
 });
+
+test("Numbers bigger than 1000 should be ignored", () => {
+  expect(Add("2,1001")).toBe(2);
+  expect(Add("1000,2560")).toBe(1000); 
+  expect(Add("1000,100,200")).toBe(1300); 
+  expect(Add("1001,100,200")).toBe(300); 
+});

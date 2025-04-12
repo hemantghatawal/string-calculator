@@ -29,13 +29,15 @@ function Add(string) {
   
   console.log("numbers =>", numbers);
   numbers.forEach((element) => {
-    if (element) sum += Number(element);
+    if (element && Number(element) <= 1000) {
+        sum += Number(element);
+    } 
   });
 
   return sum;
 }
 
-console.log(Add("//;\n1;2;-3"));
+console.log(Add("1000,100,200"));
 
 function escapeRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
