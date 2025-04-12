@@ -12,8 +12,17 @@ function Add(string) {
 
   if (string.startsWith("//")) {
     const parts = string.split("\n");
-    const customDelimiter = parts[0].slice(2);
-    delimiterRegex = new RegExp(escapeRegex(customDelimiter));
+    const delimiterPart = parts[0].slice(2);
+
+    // Delimiters can be of any length
+    const match = delimiterPart.match(/\[(.+)\]/);
+    if (match) {
+      const customDelimiter = match[1];
+      delimiterRegex = new RegExp(escapeRegex(customDelimiter));
+    } else {
+      delimiterRegex = new RegExp(escapeRegex(delimiterPart));
+    }
+
     numbersPart = parts[1];
   }
 
@@ -37,7 +46,7 @@ function Add(string) {
   return sum;
 }
 
-console.log(Add("1000,100,200"));
+console.log(Add("//[#####]\n10#####20#####50"));
 
 function escapeRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

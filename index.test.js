@@ -43,3 +43,8 @@ test("Numbers bigger than 1000 should be ignored", () => {
   expect(Add("1000,100,200")).toBe(1300); 
   expect(Add("1001,100,200")).toBe(300); 
 });
+
+test("Delimiters can be of any length", () => {
+    expect(Add("//[***]\n1***2***3")).toBe(6);
+    expect(Add("//[#####]\n10#####20#####50")).toBe(80);
+});
