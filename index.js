@@ -6,16 +6,25 @@ function Add(string) {
     return sum;
   }
 
-  const strChunk = string.split(/,|\n/);
-  console.log("strChunk =>", strChunk)
+  let delimiterRegex = /,|\n/;
+  let numbersPart = string;
+
+  if (string.startsWith("//")) {
+    const parts = string.split("\n");
+    const customDelimiter = parts[0].slice(2);
+    delimiterRegex = new RegExp(customDelimiter);
+    numbersPart = parts[1];
+  }
+
+  const strChunk = numbersPart.split(delimiterRegex);
+  console.log("strChunk =>", strChunk);
   strChunk.forEach((element) => {
-    if(element)
-    sum += Number(element);
+    if (element) sum += Number(element);
   });
 
   return sum;
 }
 
-console.log(Add("1\n2,3"));
+console.log(Add("//;\n1;2;3;4;5"));
 
 module.exports = { Add };
