@@ -14,11 +14,12 @@ function Add(string) {
     const parts = string.split("\n");
     const delimiterPart = parts[0].slice(2);
 
-    // Delimiters can be of any length
-    const match = delimiterPart.match(/\[(.+)\]/);
-    if (match) {
-      const customDelimiter = match[1];
-      delimiterRegex = new RegExp(escapeRegex(customDelimiter));
+    // Delimiters can be of any length and multiple
+    const matches = [...delimiterPart.matchAll(/\[(.+?)\]/g)];
+    console.log("matches =>", matches);
+    if (matches.length > 0) {
+      const delimiters = matches.map((m) => escapeRegex(m[1]));
+      delimiterRegex = new RegExp(delimiters.join("|"));
     } else {
       delimiterRegex = new RegExp(escapeRegex(delimiterPart));
     }
@@ -27,7 +28,7 @@ function Add(string) {
   }
 
   const numbers = numbersPart.split(delimiterRegex);
-  
+
   numbers.forEach((num) => {
     if (num < 0) negativeNumbers.push(num);
   });
@@ -35,18 +36,18 @@ function Add(string) {
   if (negativeNumbers.length > 0) {
     throw new Error("negatives not allowed: " + negativeNumbers.join(", "));
   }
-  
+
   console.log("numbers =>", numbers);
   numbers.forEach((element) => {
     if (element && Number(element) <= 1000) {
-        sum += Number(element);
-    } 
+      sum += Number(element);
+    }
   });
 
   return sum;
 }
 
-console.log(Add("//[#####]\n10#####20#####50"));
+console.log(Add("//[***][%%%]\n10***20%%%30"));
 
 function escapeRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

@@ -19,10 +19,10 @@ test("handles new lines between numbers", () => {
 });
 
 test("Support different delimiters", () => {
-    expect(Add("//;\n1;2")).toBe(3);
-    expect(Add("//;\n1;2;3;4;5")).toBe(15);
-    expect(Add("//$\n10$20$30")).toBe(60);
-    expect(Add("//!\n10!20!30!100")).toBe(160);
+  expect(Add("//;\n1;2")).toBe(3);
+  expect(Add("//;\n1;2;3;4;5")).toBe(15);
+  expect(Add("//$\n10$20$30")).toBe(60);
+  expect(Add("//!\n10!20!30!100")).toBe(160);
 });
 
 test("throws error for any negative numbers", () => {
@@ -39,12 +39,17 @@ test("handles custom delimiter with negative numbers", () => {
 
 test("Numbers bigger than 1000 should be ignored", () => {
   expect(Add("2,1001")).toBe(2);
-  expect(Add("1000,2560")).toBe(1000); 
-  expect(Add("1000,100,200")).toBe(1300); 
-  expect(Add("1001,100,200")).toBe(300); 
+  expect(Add("1000,2560")).toBe(1000);
+  expect(Add("1000,100,200")).toBe(1300);
+  expect(Add("1001,100,200")).toBe(300);
 });
 
 test("Delimiters can be of any length", () => {
-    expect(Add("//[***]\n1***2***3")).toBe(6);
-    expect(Add("//[#####]\n10#####20#####50")).toBe(80);
+  expect(Add("//[***]\n1***2***3")).toBe(6);
+  expect(Add("//[#####]\n10#####20#####50")).toBe(80);
+});
+
+test("Allow multiple delimiters of any length", () => {
+  expect(Add("//[*][%]\n1*2%3")).toBe(6);
+  expect(Add("//[***][%%%]\n10***20%%%30")).toBe(60);
 });
