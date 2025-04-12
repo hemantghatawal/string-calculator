@@ -24,3 +24,15 @@ test("Support different delimiters", () => {
     expect(Add("//$\n10$20$30")).toBe(60);
     expect(Add("//!\n10!20!30!100")).toBe(160);
 });
+
+test("throws error for any negative numbers", () => {
+  expect(() => Add("1,-2,3")).toThrow("negatives not allowed: -2");
+});
+
+test("throws error for multiple negative numbers", () => {
+  expect(() => Add("1,-2,-3")).toThrow("negatives not allowed: -2, -3");
+});
+
+test("handles custom delimiter with negative numbers", () => {
+  expect(() => Add("//;\n1;2;-3")).toThrow("negatives not allowed: -3");
+});
